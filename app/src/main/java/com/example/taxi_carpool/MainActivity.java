@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +26,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mOnLogIn(View v){
-        Intent intent = new Intent(this, PartyListActivity.class);
-        startActivity(intent);
+        EditText phonenumText = findViewById(R.id.editText2);
+        EditText passwordText = findViewById(R.id.editText4);
+
+        //회원가입 시 빈칸이 있나 확인
+        if(phonenumText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
+        }else if(passwordText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
+        }else{
+            //아이디와 비밀번호가 맞는지 확인하는 기능?
+            Intent intent = new Intent(this, PartyListActivity.class);
+            startActivity(intent);
+        }
 
     }
 

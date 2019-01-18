@@ -49,6 +49,15 @@
             app:layout_constraintStart_toStartOf="parent"
             />
         <EditText
+            android:id="@+id/register_password_check"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="Check Password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <EditText
             android:id="@+id/register_account_company"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
