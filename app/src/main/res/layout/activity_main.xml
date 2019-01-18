@@ -83,7 +83,9 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+            app:layout_constraintTop_toBottomOf="@+id/editText4"
+            android:onClick="mOnLogIn"
+            />
 
         <Button
             android:id="@+id/btn_forgot_password"
@@ -104,7 +106,8 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/btn_forgot_password"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_login"
+            android:onClick="mOnPopupClick"/>
         <!--app:layout_constraintHorizontal_chainStyle="packed"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toEndOf="@+id/btn_forgot_password"-->
