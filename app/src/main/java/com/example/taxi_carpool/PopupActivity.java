@@ -12,9 +12,6 @@ import android.widget.Toast;
 
 public class PopupActivity extends Activity {
 
-    TextView txtText;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +19,6 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.popup_activity);
     }
-
 
     //뒤로가기 버튼 누르기
     public void mOnBack(View v) {
@@ -37,6 +33,7 @@ public class PopupActivity extends Activity {
         EditText passwordTestText = findViewById(R.id.register_password_check);
         EditText accountCompanyText = findViewById(R.id.register_account_company);
         EditText accountText = findViewById(R.id.register_account);
+
 
         //회원가입 시 빈칸이 있나 확인
         if(phonenumText.getText().toString().length() == 0){
@@ -53,11 +50,6 @@ public class PopupActivity extends Activity {
             Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-//        // Intent로 데이터 전달하기
-//        Intent intent = new Intent();
-//        intent.putExtra("result", "Close Popup");
-//        setResult(RESULT_OK, intent);
     }
 
     @Override

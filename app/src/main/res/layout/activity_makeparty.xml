@@ -98,6 +98,6 @@
         android:layout_marginRight="8dp"
         android:background="@color/colorAccent"
         android:src="@drawable/ic_add_pink_24dp"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/white"
         android:onClick="mOnMakeParty"/>
 </RelativeLayout>
