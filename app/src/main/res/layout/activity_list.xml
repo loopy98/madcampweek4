@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/buttonTab"
-        />
+        android:layout_above="@+id/buttonTab">
+    </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/buttonTab"
@@ -22,8 +22,8 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:text="Back"
-            android:id="@+id/backButton"
+            android:text="현재 택시팟"
+            android:id="@+id/presentParty"
             android:textSize="15sp"
             android:textColor="#ff7a00"
             android:padding="16dp"
@@ -34,7 +34,8 @@
             android:layout_weight="1" />
 
         <Button
-            android:text="회원가입"
+            android:text="나의 택시팟"
+            android:id="@+id/myParty"
             android:textSize="15sp"
             android:textColor="#ff7a00"
             android:padding="16dp"
@@ -50,10 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonTab"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="172dp"
-        android:layout_marginRight="172dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="-30dp"
         android:onClick="mOnPlusParty"
         android:src="@drawable/ic_add_black_24dp" />

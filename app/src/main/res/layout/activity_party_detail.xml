@@ -23,18 +23,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+    <!--<ru.dimorinny.floatingtextbutton.FloatingTextButton-->
+        <!--android:id="@+id/action_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:visibility="invisible"-->
+        <!--app:floating_background_color="@color/colorAccent"-->
+        <!--app:floating_title="@string/join"-->
+        <!--app:floating_title_color="@android:color/white"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+    <android.support.design.button.MaterialButton
+        style="@style/AppThemeMaterial"
+        android:id="@+id/action_button"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorAccent"
+        app:cornerRadius="20dp"
         android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:visibility="invisible"
+        android:text="참여"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/taxi" />
+        android:textAlignment="center"
+        android:visibility="invisible"/>
 
 </android.support.constraint.ConstraintLayout>

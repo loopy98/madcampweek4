@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">taxi_carpool</string>
+    <string name="join">참여</string>
 </resources>
