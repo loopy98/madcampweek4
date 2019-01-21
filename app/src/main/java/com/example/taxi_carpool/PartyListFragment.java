@@ -102,7 +102,7 @@ public class PartyListFragment extends Fragment {
                         String inputTitle = (String) inputItem.get("title");
                         String inputDeparture = (String) inputItem.get("departure");
                         String inputDestination = (String) inputItem.get("destination");
-                        String inputNumLeft = (String) inputItem.get("numLeft");
+                        int inputNumLeft = (Integer) inputItem.get("numLeft");
                         String inputExplanation = (String) inputItem.get("explanation");
 
                         TaxiParty t = new TaxiParty(inputTitle, inputDeparture, inputDestination, inputNumLeft, inputExplanation);

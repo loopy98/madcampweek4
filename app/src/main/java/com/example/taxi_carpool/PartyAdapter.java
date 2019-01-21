@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
         MyViewHolder(View view){
             super(view);
             roomList = itemView.findViewById(R.id.constraintLayout);
+            roomTitle = itemView.findViewById(R.id.roomTitle);
+            start_end = itemView.findViewById(R.id.start_end);
+            date = itemView.findViewById(R.id.when);
+            partition = itemView.findViewById(R.id.imageView);
         }
     }
 
@@ -45,15 +50,17 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final PartyAdapter.MyViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
         final TaxiParty t = _list.get(position);
-        viewHolder.roomList.setText(t.title);
+        Log.e("title check", t.title);
+        Log.e("start check", t.departure);
+        Log.e("end check", t.destination);
+        viewHolder.roomTitle.setText(t.title);
+
+        viewHolder.start_end.setText(t.departure + "-" + t.destination);
+        viewHolder.date.setText("2019/01/21");
 
 
-
-
-
-        
         viewHolder.roomList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

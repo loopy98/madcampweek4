@@ -3,7 +3,6 @@ package com.example.taxi_carpool.Retrofit;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface IMyService {
@@ -19,6 +18,14 @@ public interface IMyService {
     @FormUrlEncoded
     Observable<String> loginUser(@Field("phoneNumber") String phonenum,
                                  @Field("password") String password);
+
+    @POST("new-party")
+    @FormUrlEncoded
+    Observable<String> makeNewParty(@Field("title") String roomTitle,
+                                    @Field("departure") String startPoint,
+                                    @Field("destination") String endPoint,
+                                    @Field("numLeft") String peopleWant,
+                                    @Field("explanation") String extra);
 
 
 
