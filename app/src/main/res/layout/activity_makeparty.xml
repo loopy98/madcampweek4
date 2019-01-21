@@ -6,98 +6,146 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:id="@+id/pageTitle">
+        <TextView
+            android:text="새로운 택시팟 생성"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:background="#ff7a00"
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/Title"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:hint="Party Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pageTitle">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="319dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Title">
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <EditText
-                android:id="@+id/Start"
-                android:layout_width="100dp"
+                android:id="@+id/Title"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:hint="Party Title"
-                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title">
+
+                <EditText
+                    android:id="@+id/Start"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                    app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
+
+                <EditText
+                    android:id="@+id/End"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="End"
+                    app:layout_constraintBottom_toBottomOf="@+id/Start"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/End"
+                    app:layout_constraintStart_toEndOf="@+id/Start"
+                    app:layout_constraintTop_toTopOf="@+id/Start"
+                    app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="출발일"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="MM/DD / HH:MM" />
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/End"
-                android:layout_width="100dp"
+                android:id="@+id/Number"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:hint="End"
-                app:layout_constraintBottom_toBottomOf="@+id/Start"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_marginTop="10dp"
+                android:hint="How many people do you want"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="199dp" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/End"
-                app:layout_constraintStart_toEndOf="@+id/Start"
-                app:srcCompat="@drawable/ic_arrow_forward_black_24dp"
-                tools:layout_editor_absoluteY="13dp" />
+            <EditText
+                android:id="@+id/Extra"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:hint="Extra Explain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Number" />
+
+
 
         </android.support.constraint.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/Number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="10dp"
-            android:hint="How many people do you want"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <EditText
-            android:id="@+id/Extra"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:hint="Extra Explain"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Number" />
-
     </android.support.constraint.ConstraintLayout>
+
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/pageTitle"
         android:layout_alignParentRight="true"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
-        android:src="@drawable/ic_add_pink_24dp"
-        app:backgroundTint="@color/white"
-        android:onClick="mOnMakeParty"/>
+        android:onClick="mOnMakeParty"
+        android:src="@drawable/ic_add_black_24dp"
+        app:backgroundTint="@color/colorAccent" />
+
 </RelativeLayout>

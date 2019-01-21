@@ -7,14 +7,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder> {
 
     private Context _context;
+    List<TaxiParty> _list;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public ConstraintLayout roomList;
+        public TextView roomTitle;
+        public TextView start_end;
+        public TextView date;
+        public ImageView partition;
 
         MyViewHolder(View view){
             super(view);
@@ -22,8 +31,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
         }
     }
 
-    public PartyAdapter(Context context){
-        _context = context;
+    //Adapter 생성자
+    public PartyAdapter(Context context, List<TaxiParty> list){
+        this._context = context;
+        this._list = list;
     }
 
     @Override
@@ -34,7 +45,15 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final PartyAdapter.MyViewHolder viewHolder, int i) {
+    public void onBindViewHolder(final PartyAdapter.MyViewHolder viewHolder, int position) {
+        final TaxiParty t = _list.get(position);
+        viewHolder.roomList.setText(t.title);
+
+
+
+
+
+        
         viewHolder.roomList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +66,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return 15;
+        return _list.size();
     }
 
 }

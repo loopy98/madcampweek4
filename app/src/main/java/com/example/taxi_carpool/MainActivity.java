@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
                 }else{
                     loginUser(edt_login_phonenumber.getText().toString(), edt_login_password.getText().toString());
-//                    //아이디와 비밀번호가 맞는지 확인하는 기능?
-//                    Intent intent = new Intent(this, PartyListActivity.class);
-//                    startActivity(intent);
                 }
             }
         });
@@ -139,6 +136,17 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String response) throws Exception {
+                        if(response.equals("\"1\"")) { // 회원가입 성공!
+                            Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
+                            startActivity(intent);
+                        }
+                        else if(response.equals("\"2\"")) { //이미 등록한 유저!!
+                            Toast.makeText(MainActivity.this, "이미 등록된 사용자 입니다", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
                         Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                     }
                 }));
@@ -151,11 +159,15 @@ public class MainActivity extends AppCompatActivity {
         .subscribe(new Consumer<String>() {
             @Override
             public void accept(String response) throws Exception {
-                if(response.equals("\"1\"")) {
+
+                if(response.equals("\"1\"")) { //로그인 성공!!
                     Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
                     startActivity(intent);
                 }
-                Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+                else if(response.equals("\"0\"")) {
+                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }));
     }
