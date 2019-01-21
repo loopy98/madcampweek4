@@ -52,19 +52,25 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
         final TaxiParty t = _list.get(position);
-        Log.e("title check", t.title);
-        Log.e("start check", t.departure);
-        Log.e("end check", t.destination);
+//        Log.e("title check", t.title);
+//        Log.e("start check", t.departure);
+//        Log.e("end check", t.destination);
+
         viewHolder.roomTitle.setText(t.title);
 
-        viewHolder.start_end.setText(t.departure + "-" + t.destination);
-        viewHolder.date.setText("2019/01/21");
-
+        viewHolder.start_end.setText(t.departure + " - " + t.destination);
+        viewHolder.date.setText(t.when);
 
         viewHolder.roomList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(_context, PartyDetailActivity.class);
+                intent.putExtra("title", t.title);
+                intent.putExtra("departure", t.departure);
+                intent.putExtra("destination", t.destination);
+                intent.putExtra("date", t.when);
+                intent.putExtra("numLeft", t.numLeft);
+                intent.putExtra("explanation", t.explanation);
                 _context.startActivity(intent);
             }
         });

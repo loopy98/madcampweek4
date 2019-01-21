@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.taxi_carpool.Retrofit.IMyService;
 import com.example.taxi_carpool.Retrofit.RetrofitClient;
 
+import org.w3c.dom.Text;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -46,6 +48,10 @@ public class MakePartyActivity extends AppCompatActivity {
         final EditText pageTitle = findViewById(R.id.Title);
         final EditText startText = findViewById(R.id.Start);
         final EditText endText = findViewById(R.id.End);
+        final EditText monthText = findViewById(R.id.month);
+        final EditText dateText = findViewById(R.id.date);
+        final EditText hourText = findViewById(R.id.hour);
+        final EditText minuteText = findViewById(R.id.minute);
         final EditText peopleText = findViewById(R.id.Number);
         final EditText extraText = findViewById(R.id.Extra);
 
@@ -58,10 +64,19 @@ public class MakePartyActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "목적지를 입력하세요", Toast.LENGTH_SHORT).show();
         }else if(peopleText.getText().toString().length() == 0){
             Toast.makeText(getApplicationContext(), "몇명과 함께 타시길 원하시나요?", Toast.LENGTH_SHORT).show();
+        }else if(monthText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "날짜를 입력해주세요", Toast.LENGTH_SHORT).show();
+        }else if(dateText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "날짜를 입력해주세요", Toast.LENGTH_SHORT).show();
+        }else if(hourText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "날짜를 입력해주세요", Toast.LENGTH_SHORT).show();
+        }else if(minuteText.getText().toString().length() == 0){
+            Toast.makeText(getApplicationContext(), "날짜를 입력해주세요", Toast.LENGTH_SHORT).show();
         }else{ // 모든 데이터들을 입력했음으로 그 데이터들을 서버로 전송
             makeRoom(pageTitle.getText().toString(),
                     startText.getText().toString(),
                     endText.getText().toString(),
+                    monthText.getText().toString() + "/" + dateText.getText().toString() + " " + hourText.getText().toString() + ":" + minuteText.getText().toString(),
                     peopleText.getText().toString(),
                     extraText.getText().toString());
             finish();
@@ -69,9 +84,9 @@ public class MakePartyActivity extends AppCompatActivity {
 
     }
 
-    private void makeRoom(String title, String departure, String destination, String numLeft, String explanation) {
+    private void makeRoom(String title, String departure, String destination, String date, String numLeft, String explanation) {
         Log.e("makeRoom Parameter", title + " / " + departure + " / " + destination + " / " + numLeft + " / " + explanation);
-        compositeDisposable.add(iMyService.makeNewParty(title, departure, destination, numLeft, explanation)
+        compositeDisposable.add(iMyService.makeNewParty(title, departure, destination, date, numLeft, explanation)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<String>() {

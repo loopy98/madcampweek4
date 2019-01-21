@@ -104,22 +104,25 @@
                     <!--android:layout_gravity="center">-->
 
                     <EditText
-                        android:id="@+id/date"
+                        android:id="@+id/month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint=" MM월 " />
 
                     <EditText
+                        android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint=" DD일 "/>
 
                     <EditText
+                        android:id="@+id/hour"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint=" HH시 "/>
 
                     <EditText
+                        android:id="@+id/minute"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint=" MM분 "/>

@@ -160,13 +160,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void accept(String response) throws Exception {
 
-                if(response.equals("\"1\"")) { //로그인 성공!!
+
+                if(response.equals("\"0\"")) {
+                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
+                }else { //로그인 성공!!
                     Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
                     startActivity(intent);
                 }
-                else if(response.equals("\"0\"")) {
-                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
-                }
+
 
             }
         }));

@@ -8,9 +8,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -44,6 +46,8 @@ public class PartyListFragment extends Fragment {
     IMyService iMyService;
 
     List<TaxiParty> partyList;
+    RecyclerView mRecyclerView;
+    ConstraintLayout partyListLayout;
 
 
     public PartyListFragment(){
@@ -58,10 +62,11 @@ public class PartyListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("Action Check", "onCreateView is started");
 
-        ConstraintLayout partyListLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_partylist, container, false);
+        partyListLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_partylist, container, false);
 
-        RecyclerView mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
+        mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
 
         partyList = loadParty();
@@ -76,6 +81,20 @@ public class PartyListFragment extends Fragment {
 
         return partyListLayout;
     }
+
+//    @Override
+//    public void onResume() {
+//
+//        super.onResume();
+//        mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
+//        mRecyclerView.setHasFixedSize(false);
+//        Log.e("Action Check", "onResume is started");
+//        partyList = loadParty();
+//        Log.e("Action Check", "loadParty is finished");
+//        PartyAdapter myAdapter = new PartyAdapter(getContext(), partyList);
+//        //myAdapter.notifyDataSetChanged();
+//        mRecyclerView.setAdapter(myAdapter);
+//    }
 
     private List<TaxiParty> loadParty() {
         final List<TaxiParty> taxiPartyList = new ArrayList<>();
@@ -102,10 +121,11 @@ public class PartyListFragment extends Fragment {
                         String inputTitle = (String) inputItem.get("title");
                         String inputDeparture = (String) inputItem.get("departure");
                         String inputDestination = (String) inputItem.get("destination");
+                        String inputDate = (String) inputItem.get("date");
                         int inputNumLeft = (Integer) inputItem.get("numLeft");
                         String inputExplanation = (String) inputItem.get("explanation");
 
-                        TaxiParty t = new TaxiParty(inputTitle, inputDeparture, inputDestination, inputNumLeft, inputExplanation);
+                        TaxiParty t = new TaxiParty(inputTitle, inputDeparture, inputDestination, inputDate, inputNumLeft, inputExplanation);
                         taxiPartyList.add(t);
                     }
                 } catch (MalformedURLException e) {

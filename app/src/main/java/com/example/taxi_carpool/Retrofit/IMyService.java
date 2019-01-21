@@ -24,11 +24,9 @@ public interface IMyService {
     Observable<String> makeNewParty(@Field("title") String roomTitle,
                                     @Field("departure") String startPoint,
                                     @Field("destination") String endPoint,
+                                    @Field("date") String date,
                                     @Field("numLeft") String peopleWant,
                                     @Field("explanation") String extra);
-
-
-
 
 
 }
