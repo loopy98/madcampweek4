@@ -17,6 +17,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
 
     private Context _context;
     List<TaxiParty> _list;
+    Integer phonenum;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -37,9 +38,10 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
     }
 
     //Adapter 생성자
-    public PartyAdapter(Context context, List<TaxiParty> list){
+    public PartyAdapter(Context context, List<TaxiParty> list, Integer phone){
         this._context = context;
         this._list = list;
+        this.phonenum = phone;
     }
 
     @Override
@@ -65,6 +67,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(_context, PartyDetailActivity.class);
+                intent.putExtra("PartyId", t.ID);
                 intent.putExtra("title", t.title);
                 intent.putExtra("departure", t.departure);
                 intent.putExtra("destination", t.destination);

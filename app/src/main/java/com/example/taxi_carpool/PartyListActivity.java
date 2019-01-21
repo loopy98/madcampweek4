@@ -19,17 +19,55 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PartyListActivity extends AppCompatActivity{
+
+    JSONArray inputJSONPartyList;
+    List<TaxiParty> partyList;
+
+    String userId, password, salt, company, account, currentTaxiParty;
+    Integer phoneNumber;
+
     ViewPager vp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("_id");
+        password = intent.getStringExtra("password");
+        salt = intent.getStringExtra("salt");
+        company = intent.getStringExtra("company");
+        account = intent.getStringExtra("account");
+        phoneNumber = intent.getIntExtra("phoneNumber", 4);
+        currentTaxiParty = intent.getStringExtra("currentTaxiParty");
+
+
+
+
         //ViewPager와 Button 초기화
         vp = findViewById(R.id.vp);
         Button btn_presentParty = findViewById(R.id.presentParty);
         Button btn_myParty = findViewById(R.id.myParty);
+
+        partyList = loadParty();
+
 
         //ViewPager와 Adapter 연결
         vp.setAdapter(new pagerAdapter(getSupportFragmentManager()));
@@ -109,8 +147,56 @@ public class PartyListActivity extends AppCompatActivity{
     public void mOnPlusParty(View v){
         Intent intent = new Intent(this, MakePartyActivity.class);
         startActivity(intent);
+    }
 
+    private List<TaxiParty> loadParty() {
+        final List<TaxiParty> taxiPartyList = new ArrayList<>();
+        Thread loadPartyThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://socrip4.kaist.ac.kr:2080/party-list");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setDoInput(true);
 
+                    connection.setConnectTimeout(10000);
+                    connection.setReadTimeout(10000);
+                    InputStream inputStream = connection.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    //Taxi팟 JsonObject가 담긴 Array하나씩 읽기
+                    JSONArray inputArray = new JSONArray(bufferedReader.readLine());
+
+                    inputJSONPartyList = inputArray;
+
+                    for(int i = 0; i < inputArray.length(); i++) {
+                        JSONObject inputItem = (JSONObject) inputArray.get(i);
+                        String inputId = (String) inputItem.get("_id");
+                        String inputTitle = (String) inputItem.get("title");
+                        String inputDeparture = (String) inputItem.get("departure");
+                        String inputDestination = (String) inputItem.get("destination");
+                        String inputDate = (String) inputItem.get("date");
+                        int inputNumLeft = (Integer) inputItem.get("numLeft");
+                        String inputExplanation = (String) inputItem.get("explanation");
+
+                        TaxiParty t = new TaxiParty(inputId, inputTitle, inputDeparture, inputDestination, inputDate, inputNumLeft, inputExplanation);
+                        taxiPartyList.add(t);
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        loadPartyThread.start();
+        return taxiPartyList;
     }
 
 }

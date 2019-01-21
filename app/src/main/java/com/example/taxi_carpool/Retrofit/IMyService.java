@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface IMyService {
     @POST("sign-up")
@@ -27,6 +28,11 @@ public interface IMyService {
                                     @Field("date") String date,
                                     @Field("numLeft") String peopleWant,
                                     @Field("explanation") String extra);
+
+    @PUT("enter-party")
+    @FormUrlEncoded
+    Observable<String> enterParty(@Field("phoneNumber") String phonenum,
+                                 @Field("password") String password);
 
 
 }

@@ -21,6 +21,23 @@ import com.example.taxi_carpool.Retrofit.RetrofitClient;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -143,36 +160,81 @@ public class MainActivity extends AppCompatActivity {
                         else if(response.equals("\"2\"")) { //이미 등록한 유저!!
                             Toast.makeText(MainActivity.this, "이미 등록된 사용자 입니다", Toast.LENGTH_SHORT).show();
                         }
-
-
-
-
                         Toast.makeText(MainActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                     }
                 }));
     }
 
-    private void loginUser(String phonenum, String password) {
-        compositeDisposable.add(iMyService.loginUser(phonenum, password)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<String>() {
+    private void loginUser(final String phonenum, final String password) {
+        Thread loadPartyThread = new Thread() {
             @Override
-            public void accept(String response) throws Exception {
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("phoneNumber", phonenum);
+                    jsonObject.put("password", password);
+                    URL url = new URL("http://socrip4.kaist.ac.kr:2080/log-in");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("POST");
+                    connection.setDoInput(true);
+                    connection.setDoOutput(true);
+                    connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                    connection.setRequestProperty("Accept","application/json");
 
+                    OutputStream os = connection.getOutputStream();
+                    os.write(jsonObject.toString().getBytes("UTF-8"));
+                    os.close();
 
-                if(response.equals("\"0\"")) {
-                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
-                }else { //로그인 성공!!
+                    InputStream inputStream = connection.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    //유저 정보가 담긴 JSON Object를 받아옴.
+                    JSONObject inputdata = new JSONObject(bufferedReader.readLine());
+                    String inputUserId = (String) inputdata.get("_id");
+                    String inputPassword = (String) inputdata.get("password");
+                    String inputSalt = (String) inputdata.get("salt");
+                    Integer inputPhoneNumber = (Integer) inputdata.get("phoneNumber");
+                    String inputCompany = (String) inputdata.get("company");
+                    String inputAccount = (String) inputdata.get("account");
+                    String inputCurrentTaxiParty = (String) inputdata.get("currentTaxiParty");
+
                     Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
+                    intent.putExtra("_id", inputUserId);
+                    intent.putExtra("password", inputPassword);
+                    intent.putExtra("salt", inputSalt);
+                    intent.putExtra("phoneNumber", inputPhoneNumber);
+                    intent.putExtra("company", inputCompany);
+                    intent.putExtra("account", inputAccount);
+                    intent.putExtra("currentTaxiParty", inputCurrentTaxiParty);
                     startActivity(intent);
+                    } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-
             }
-        }));
+        };
+        loadPartyThread.start();
+//        compositeDisposable.add(iMyService.loginUser(phonenum, password)
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(new Consumer<String>() {
+//            @Override
+//            public void accept(String response) throws Exception {
+//                if(response.equals("\"0\"")) {
+//                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
+//                }else { //로그인 성공!!
+//                    Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
+//                    startActivity(intent);
+//                }
+//
+//
+//            }
+//        }));
     }
-
 
     //버튼
     public void mOnPopupClick(View v){

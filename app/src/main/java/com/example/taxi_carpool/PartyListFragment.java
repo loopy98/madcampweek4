@@ -45,9 +45,10 @@ public class PartyListFragment extends Fragment {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     IMyService iMyService;
 
-    List<TaxiParty> partyList;
+    List<TaxiParty> taxiPartyList;
     RecyclerView mRecyclerView;
     ConstraintLayout partyListLayout;
+    Integer userPhoneNumber;
 
 
     public PartyListFragment(){
@@ -69,13 +70,14 @@ public class PartyListFragment extends Fragment {
         mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
 
-        partyList = loadParty();
-
         //Manager를 설정하고 RecyclerView에 어댑터 설정
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        PartyAdapter myAdapter = new PartyAdapter(getContext(), partyList);
+        taxiPartyList = ((PartyListActivity)getActivity()).partyList;
+        userPhoneNumber = ((PartyListActivity)getActivity()).phoneNumber;
+
+        PartyAdapter myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);
         mRecyclerView.setAdapter(myAdapter);
 
 
@@ -95,51 +97,4 @@ public class PartyListFragment extends Fragment {
 //        //myAdapter.notifyDataSetChanged();
 //        mRecyclerView.setAdapter(myAdapter);
 //    }
-
-    private List<TaxiParty> loadParty() {
-        final List<TaxiParty> taxiPartyList = new ArrayList<>();
-        Thread loadPartyThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("http://socrip4.kaist.ac.kr:2080/party-list");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setDoInput(true);
-
-                    connection.setConnectTimeout(10000);
-                    connection.setReadTimeout(10000);
-                    InputStream inputStream = connection.getInputStream();
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                    //Taxi팟 JsonObject가 담긴 Array하나씩 읽기
-                    JSONArray inputArray = new JSONArray(bufferedReader.readLine());
-
-                    for(int i = 0; i < inputArray.length(); i++) {
-                        JSONObject inputItem = (JSONObject) inputArray.get(i);
-                        String inputTitle = (String) inputItem.get("title");
-                        String inputDeparture = (String) inputItem.get("departure");
-                        String inputDestination = (String) inputItem.get("destination");
-                        String inputDate = (String) inputItem.get("date");
-                        int inputNumLeft = (Integer) inputItem.get("numLeft");
-                        String inputExplanation = (String) inputItem.get("explanation");
-
-                        TaxiParty t = new TaxiParty(inputTitle, inputDeparture, inputDestination, inputDate, inputNumLeft, inputExplanation);
-                        taxiPartyList.add(t);
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        loadPartyThread.start();
-        return taxiPartyList;
-    }
 }

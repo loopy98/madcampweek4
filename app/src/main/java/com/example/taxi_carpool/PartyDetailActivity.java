@@ -10,23 +10,46 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.taxi_carpool.Retrofit.IMyService;
+import com.example.taxi_carpool.Retrofit.RetrofitClient;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
 public class PartyDetailActivity extends AppCompatActivity {
 
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
+    IMyService iMyService;
+
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
     private MaterialButton fab;
-    private String title, departure, destination,date, explanation;
+    private String title, departure, destination,date, explanation, partyId;
     private Integer numLeft;
+
+    //onStop() : 액티비티가 더이상 사용자에게 보여지지 않을 때 호출
+    @Override
+    protected void onStop() {
+        compositeDisposable.clear();
+        super.onStop();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_detail);
 
-        Intent intent = getIntent();
+        Retrofit retrofitClient = RetrofitClient.getInstance();
+        iMyService = retrofitClient.create(IMyService.class);
 
+        Intent intent = getIntent();
+        partyId = intent.getStringExtra("PartyId");
         title = intent.getStringExtra("title");
         departure = intent.getStringExtra("departure");
         destination = intent.getStringExtra("destination");
@@ -35,6 +58,30 @@ public class PartyDetailActivity extends AppCompatActivity {
         explanation = intent.getStringExtra("explanation");
 
         fab = findViewById(R.id.action_button);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DB user 정보에 저장
+
+                compositeDisposable.add(iMyService.enterParty(phonenum, password)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<String>() {
+                            @Override
+                            public void accept(String response) throws Exception {
+                                if(response.equals("\"0\"")) {
+                                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
+                                }else { //로그인 성공!!
+                                    Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
+                                    startActivity(intent);
+                                }
+
+
+                            }
+                        }));
+            }
+        });
 
 
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
