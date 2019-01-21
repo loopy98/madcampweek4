@@ -31,7 +31,7 @@ public class PartyDetailActivity extends AppCompatActivity {
     private Boolean isFabOpen = false;
     private MaterialButton fab;
     private String title, departure, destination,date, explanation, partyId;
-    private Integer numLeft;
+    private Integer numLeft, userPhone;
 
     //onStop() : 액티비티가 더이상 사용자에게 보여지지 않을 때 호출
     @Override
@@ -49,6 +49,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         iMyService = retrofitClient.create(IMyService.class);
 
         Intent intent = getIntent();
+        userPhone = intent.getIntExtra("UserPhoneNumber", 00000000000);
         partyId = intent.getStringExtra("PartyId");
         title = intent.getStringExtra("title");
         departure = intent.getStringExtra("departure");
@@ -63,15 +64,16 @@ public class PartyDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //DB user 정보에 저장
-
-                compositeDisposable.add(iMyService.enterParty(phonenum, password)
+                compositeDisposable.add(iMyService.enterParty(userPhone, partyId)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Consumer<String>() {
                             @Override
                             public void accept(String response) throws Exception {
-                                if(response.equals("\"0\"")) {
-                                    Toast.makeText(MainActivity.this, "등록된 사용자가 아닙니다", Toast.LENGTH_SHORT).show();
+                                if(response.equals("\'user info updated'\'")) { //새로운 채팅방에 가입!
+                                    Toast.makeText(getApplicationContext(), "가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    //
                                 }else { //로그인 성공!!
                                     Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
                                     startActivity(intent);

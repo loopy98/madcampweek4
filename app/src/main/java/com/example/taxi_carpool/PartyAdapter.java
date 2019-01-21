@@ -67,6 +67,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(_context, PartyDetailActivity.class);
+                intent.putExtra("UserPhoneNumber", phonenum);
                 intent.putExtra("PartyId", t.ID);
                 intent.putExtra("title", t.title);
                 intent.putExtra("departure", t.departure);

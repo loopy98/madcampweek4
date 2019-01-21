@@ -197,7 +197,13 @@ public class MainActivity extends AppCompatActivity {
                     Integer inputPhoneNumber = (Integer) inputdata.get("phoneNumber");
                     String inputCompany = (String) inputdata.get("company");
                     String inputAccount = (String) inputdata.get("account");
-                    String inputCurrentTaxiParty = (String) inputdata.get("currentTaxiParty");
+                    String inputCurrentTaxiParty;
+                    if(inputdata.isNull("currentTaxiParty")) {
+                        inputCurrentTaxiParty = null;
+                    }else{
+                        inputCurrentTaxiParty = (String) inputdata.get("currentTaxiParty");
+                    }
+
 
                     Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
                     intent.putExtra("_id", inputUserId);

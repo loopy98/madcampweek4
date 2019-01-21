@@ -31,8 +31,8 @@ public interface IMyService {
 
     @PUT("enter-party")
     @FormUrlEncoded
-    Observable<String> enterParty(@Field("phoneNumber") String phonenum,
-                                 @Field("password") String password);
+    Observable<String> enterParty(@Field("phoneNumber") Integer phonenum,
+                                 @Field("currentTaxiParty") String partyId);
 
 
 }
