@@ -74,7 +74,9 @@ public class PartyListFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        //Fragment에서 부모 Activity의 변수 or 메소드에 접근하는 방법
         taxiPartyList = ((PartyListActivity)getActivity()).partyList;
+        Log.e("ArrayLength Check", Integer.toString(taxiPartyList.size()));
         userPhoneNumber = ((PartyListActivity)getActivity()).phoneNumber;
 
         PartyAdapter myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);

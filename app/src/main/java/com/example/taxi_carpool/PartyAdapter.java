@@ -54,14 +54,20 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
         final TaxiParty t = _list.get(position);
-//        Log.e("title check", t.title);
-//        Log.e("start check", t.departure);
-//        Log.e("end check", t.destination);
 
+        //TextView의 값 변경
         viewHolder.roomTitle.setText(t.title);
-
         viewHolder.start_end.setText(t.departure + " - " + t.destination);
         viewHolder.date.setText(t.when);
+        if(t.numLeft == 3) {
+            viewHolder.partition.setImageResource(R.drawable.quarter_circle_1);
+        }else if(t.numLeft == 2) {
+            viewHolder.partition.setImageResource(R.drawable.quarter_circle_2);
+        }else if(t.numLeft == 1) {
+            viewHolder.partition.setImageResource(R.drawable.quarter_circle_3);
+        }
+
+
 
         viewHolder.roomList.setOnClickListener(new View.OnClickListener() {
             @Override

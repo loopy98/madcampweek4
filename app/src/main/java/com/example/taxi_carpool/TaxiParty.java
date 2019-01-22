@@ -9,7 +9,6 @@ public class TaxiParty {
     Integer numLeft;
     String explanation;
 
-    public TaxiParty(){ }
 
     public TaxiParty(String id, String title, String departure, String destination, String date, Integer numLeft, String explanation) {
         this.ID = id;

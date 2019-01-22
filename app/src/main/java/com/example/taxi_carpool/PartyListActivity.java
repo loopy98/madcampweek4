@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -37,7 +39,9 @@ import java.util.List;
 public class PartyListActivity extends AppCompatActivity{
 
     JSONArray inputJSONPartyList;
-    List<TaxiParty> partyList;
+    ArrayList<TaxiParty> partyList;
+
+    TaxiParty myArray;
 
     String userId, password, salt, company, account, currentTaxiParty;
     Integer phoneNumber;
@@ -47,7 +51,6 @@ public class PartyListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
 
         Intent intent = getIntent();
         userId = intent.getStringExtra("_id");
@@ -59,16 +62,12 @@ public class PartyListActivity extends AppCompatActivity{
         currentTaxiParty = intent.getStringExtra("currentTaxiParty");
 
 
-
-
         //ViewPager와 Button 초기화
         vp = findViewById(R.id.vp);
         Button btn_presentParty = findViewById(R.id.presentParty);
         Button btn_myParty = findViewById(R.id.myParty);
 
         partyList = loadParty();
-
-
         //ViewPager와 Adapter 연결
         vp.setAdapter(new pagerAdapter(getSupportFragmentManager()));
         //앱이 실행됐을 때 첫번째 페이지로 초기화 시키는 부분
@@ -149,8 +148,8 @@ public class PartyListActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    private List<TaxiParty> loadParty() {
-        final List<TaxiParty> taxiPartyList = new ArrayList<>();
+    private ArrayList<TaxiParty> loadParty() {
+        final ArrayList<TaxiParty> taxiPartyList = new ArrayList<>();
         Thread loadPartyThread = new Thread() {
             @Override
             public void run() {
@@ -160,8 +159,8 @@ public class PartyListActivity extends AppCompatActivity{
                     connection.setRequestMethod("GET");
                     connection.setDoInput(true);
 
-                    connection.setConnectTimeout(10000);
-                    connection.setReadTimeout(10000);
+//                    connection.setConnectTimeout(10000);
+//                    connection.setReadTimeout(10000);
                     InputStream inputStream = connection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
