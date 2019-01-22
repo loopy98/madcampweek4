@@ -46,6 +46,11 @@ public class PartyListActivity extends AppCompatActivity{
     String userId, password, salt, company, account, currentTaxiParty;
     Integer phoneNumber;
 
+    public ArrayList<TaxiParty> getPartyList() {
+        partyList = loadParty();
+        return this.partyList;
+    }
+
     ViewPager vp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
