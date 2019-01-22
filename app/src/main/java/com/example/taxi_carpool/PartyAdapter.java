@@ -65,6 +65,8 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.MyViewHolder
             viewHolder.partition.setImageResource(R.drawable.quarter_circle_2);
         }else if(t.numLeft == 1) {
             viewHolder.partition.setImageResource(R.drawable.quarter_circle_3);
+        }else{
+            viewHolder.partition.setImageResource(R.drawable.ic_check_orange_24dp);
         }
 
 

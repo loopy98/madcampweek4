@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 final View register_layout = LayoutInflater.from(MainActivity.this).inflate(R.layout.popup_activity1, null);
 
                 new MaterialStyledDialog.Builder(MainActivity.this)
+                        .setHeaderColor(R.color.colorAccent)
                         .setIcon(R.drawable.taxi1)
                         .setTitle("REGISTRATION")
                         .setDescription("Please fill all fields")

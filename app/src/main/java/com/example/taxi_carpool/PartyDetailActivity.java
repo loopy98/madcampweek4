@@ -70,14 +70,16 @@ public class PartyDetailActivity extends AppCompatActivity {
                         .subscribe(new Consumer<String>() {
                             @Override
                             public void accept(String response) throws Exception {
-                                if(response.equals("\'user info updated'\'")) { //새로운 채팅방에 가입!
-                                    Toast.makeText(getApplicationContext(), "가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                    //
-                                }else { //로그인 성공!!
-                                    Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
-                                    startActivity(intent);
-                                }
+                                Toast.makeText(getApplicationContext(), "가입이 완료되었습니다!", Toast.LENGTH_SHORT).show();
+                                finish();
+//                                if(response.equals("\'1'\'")) { //새로운 채팅방에 가입!
+//
+//                                    //
+//                                }
+//                                else { //로그인 성공!!
+//                                    Intent intent = new Intent(getApplicationContext(), PartyListActivity.class);
+//                                    startActivity(intent);
+//                                }
 
 
                             }

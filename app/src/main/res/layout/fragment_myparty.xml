@@ -19,7 +19,7 @@
             android:gravity="center"
             android:background="#ff7a00"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="53dp"/>
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -49,7 +49,17 @@
                 android:layout_marginEnd="8dp"
                 android:text="제목"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/below_line"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <TextView
                 android:id="@+id/party_detail_title"
@@ -71,7 +81,17 @@
                 android:layout_marginEnd="8dp"
                 android:text="출발지   /   도착지"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/below_line"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -127,7 +147,17 @@
                 android:layout_marginEnd="8dp"
                 android:text="출발시간"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/below_line"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <TextView
                 android:id="@+id/party_detail_time"
@@ -149,7 +179,17 @@
                 android:layout_marginEnd="8dp"
                 android:text="모집인원"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/below_line"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <TextView
                 android:id="@+id/party_detail_numPeople"
@@ -171,7 +211,17 @@
                 android:layout_marginEnd="8dp"
                 android:text="추가 설명"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/below_line"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
 
             <TextView
                 android:id="@+id/party_detail_explanation"
@@ -194,14 +244,14 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/colorAccent"
         android:text="채팅방 참여"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="22sp"
-        app:cornerRadius="20dp"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

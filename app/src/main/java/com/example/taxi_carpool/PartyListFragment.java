@@ -2,12 +2,14 @@ package com.example.taxi_carpool;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,8 +49,10 @@ public class PartyListFragment extends Fragment {
 
     List<TaxiParty> taxiPartyList;
     RecyclerView mRecyclerView;
-    ConstraintLayout partyListLayout;
+    LinearLayout partyListLayout;
     Integer userPhoneNumber;
+
+    PartyAdapter myAdapter;
 
 
     public PartyListFragment(){
@@ -65,7 +69,7 @@ public class PartyListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.e("Action Check", "onCreateView is started");
 
-        partyListLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_partylist, container, false);
+        partyListLayout = (LinearLayout) inflater.inflate(R.layout.fragment_partylist, container, false);
 
         mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
@@ -76,27 +80,40 @@ public class PartyListFragment extends Fragment {
 
         //Fragment에서 부모 Activity의 변수 or 메소드에 접근하는 방법
         taxiPartyList = ((PartyListActivity)getActivity()).partyList;
-        Log.e("ArrayLength Check", Integer.toString(taxiPartyList.size()));
         userPhoneNumber = ((PartyListActivity)getActivity()).phoneNumber;
 
-        PartyAdapter myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);
+        myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);
         mRecyclerView.setAdapter(myAdapter);
 
 
         return partyListLayout;
     }
 
+    @Override
+    public void onStart() {
+        Log.e("onStart is started", "Start");
+        super.onStart();
+
+        taxiPartyList = ((PartyListActivity)getActivity()).getPartyList();
+        Log.e("getPartyList is started", "Start");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("Thread is started", "Start");
+                myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);
+                mRecyclerView.setAdapter(myAdapter);
+            }
+        }, 500);
+
+    }
+
 //    @Override
 //    public void onResume() {
-//
+//        Log.e("onResume", "Start");
 //        super.onResume();
-//        mRecyclerView = partyListLayout.findViewById(R.id.recycler_view);
-//        mRecyclerView.setHasFixedSize(false);
-//        Log.e("Action Check", "onResume is started");
-//        partyList = loadParty();
-//        Log.e("Action Check", "loadParty is finished");
-//        PartyAdapter myAdapter = new PartyAdapter(getContext(), partyList);
-//        //myAdapter.notifyDataSetChanged();
+//        taxiPartyList = ((PartyListActivity)getActivity()).getPartyList();
+//        myAdapter = new PartyAdapter(getContext(), taxiPartyList, userPhoneNumber);
 //        mRecyclerView.setAdapter(myAdapter);
 //    }
 }

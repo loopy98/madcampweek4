@@ -54,17 +54,20 @@ public class PartyListActivity extends AppCompatActivity{
     ViewPager vp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.e("PartyListActivity", "Start");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
         Intent intent = getIntent();
+        currentTaxiParty = intent.getStringExtra("currentTaxiParty");
         userId = intent.getStringExtra("_id");
         password = intent.getStringExtra("password");
         salt = intent.getStringExtra("salt");
         company = intent.getStringExtra("company");
         account = intent.getStringExtra("account");
         phoneNumber = intent.getIntExtra("phoneNumber", 4);
-        currentTaxiParty = intent.getStringExtra("currentTaxiParty");
+
 
 
         //ViewPager와 Button 초기화
@@ -129,6 +132,8 @@ public class PartyListActivity extends AppCompatActivity{
         //안드로이드 백버튼 누르면 로그아웃을 하겠냐는 창 띄우기
 
         new MaterialStyledDialog.Builder(PartyListActivity.this)
+                .setHeaderColor(R.color.colorAccent)
+                .setIcon(R.drawable.taxi_transportation)
                 .setTitle("LOGOUT")
                 .setDescription("로그아웃 하시겠습니까?")
                 .setNegativeText("CANCEL")
